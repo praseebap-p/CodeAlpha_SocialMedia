@@ -1,0 +1,12 @@
+{% extends 'social/base.html' %}
+{% block content %}
+<div class="card" style="max-width:400px; margin:auto;">
+    <h2 style="margin-bottom:20px; text-align:center;">📘 Create Account</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn" style="width:100%; padding:12px; margin-top:10px; font-size:16px;">Register</button>
+    </form>
+    <p style="text-align:center; margin-top:15px;">Already have an account? <a href="/login/">Login</a></p>
+</div>
+{% endblock %}
