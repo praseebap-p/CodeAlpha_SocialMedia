@@ -1,0 +1,16 @@
+{% extends 'social/base.html' %}
+{% block content %}
+<div class="card">
+    <h2 style="margin-bottom:20px;">✍️ Create Post</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <textarea name="content" placeholder="What's on your mind?" 
+            style="width:100%; padding:15px; border:1px solid #ddd; border-radius:8px; font-size:16px; min-height:120px; resize:vertical; margin-bottom:15px;"></textarea>
+        <input type="file" name="image" accept="image/*" 
+            style="margin-bottom:15px; display:block;">
+        <button type="submit" class="btn" style="width:100%; padding:12px; font-size:16px;">
+            Post 🚀
+        </button>
+    </form>
+</div>
+{% endblock %}
