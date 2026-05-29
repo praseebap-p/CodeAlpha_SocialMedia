@@ -1,0 +1,42 @@
+{% extends 'social/base.html' %}
+{% block content %}
+<div class="card" style="text-align:center;">
+    {% if profile.profile_pic %}
+        <img src="{{ profile.profile_pic.url }}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; margin-bottom:15px;">
+    {% else %}
+        <div style="width:100px; height:100px; border-radius:50%; background:#1877f2; display:flex; align-items:center; justify-content:center; margin:0 auto 15px; font-size:40px; color:white;">
+            👤
+        </div>
+    {% endif %}
+    <h2>{{ profile.user.username }}</h2>
+    <p style="color:#666; margin:10px 0;">{{ profile.bio|default:"No bio yet." }}</p>
+    <p style="margin-bottom:15px;">
+        <strong>{{ profile.followers_count }}</strong> Followers &nbsp;|&nbsp;
+        <strong>{{ posts.count }}</strong> Posts
+    </p>
+    {% if user.is_authenticated and user != profile.user %}
+        <a href="/profile/{{ profile.user.username }}/follow/" class="btn">
+            {% if is_following %}Unfollow{% else %}Follow{% endif %}
+        </a>
+    {% endif %}
+    {% if user == profile.user %}
+        <a href="/profile/edit/" class="btn" style="margin-left:10px;">Edit Profile</a>
+    {% endif %}
+</div>
+
+<h3 style="margin-bottom:15px;">Posts</h3>
+{% for post in posts %}
+<div class="card">
+    <p style="margin-bottom:10px;">{{ post.content }}</p>
+    {% if post.image %}
+        <img src="{{ post.image.url }}" style="width:100%; border-radius:8px; margin-bottom:10px;">
+    {% endif %}
+    <div style="display:flex; gap:10px;">
+        <a href="/post/{{ post.pk }}/like/" class="btn">❤️ {{ post.likes_count }}</a>
+        <a href="/post/{{ post.pk }}/" class="btn">💬 {{ post.comments.count }}</a>
+    </div>
+</div>
+{% empty %}
+    <div class="card"><p style="color:#999;">No posts yet.</p></div>
+{% endfor %}
+{% endblock %}
