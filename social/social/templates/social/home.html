@@ -1,0 +1,29 @@
+{% extends 'social/base.html' %}
+{% block content %}
+<h2 style="margin-bottom:20px;">📰 Feed</h2>
+{% for post in posts %}
+<div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <a href="/profile/{{ post.user.username }}/" style="font-weight:bold; color:#1877f2; text-decoration:none;">
+            👤 {{ post.user.username }}
+        </a>
+        <small style="color:#999;">{{ post.created_at|timesince }} ago</small>
+    </div>
+    <p style="margin-bottom:10px;">{{ post.content }}</p>
+    {% if post.image %}
+        <img src="{{ post.image.url }}" style="width:100%; border-radius:8px; margin-bottom:10px;">
+    {% endif %}
+    <div style="display:flex; gap:10px; align-items:center;">
+        <a href="/post/{{ post.pk }}/like/" class="btn">❤️ {{ post.likes_count }}</a>
+        <a href="/post/{{ post.pk }}/" class="btn">💬 {{ post.comments.count }}</a>
+        {% if user == post.user %}
+            <a href="/post/{{ post.pk }}/delete/" class="btn btn-red">🗑️ Delete</a>
+        {% endif %}
+    </div>
+</div>
+{% empty %}
+    <div class="card">
+        <p>No posts yet. <a href="/post/create/">Create the first post!</a></p>
+    </div>
+{% endfor %}
+{% endblock %}
