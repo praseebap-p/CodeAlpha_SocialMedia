@@ -1,0 +1,14 @@
+{% extends 'social/base.html' %}
+{% block content %}
+<div class="card">
+    <h2 style="margin-bottom:20px;">✏️ Edit Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label style="display:block; margin-bottom:8px; font-weight:bold;">Bio</label>
+        <textarea name="bio" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; min-height:100px; margin-bottom:15px;">{{ profile.bio }}</textarea>
+        <label style="display:block; margin-bottom:8px; font-weight:bold;">Profile Picture</label>
+        <input type="file" name="profile_pic" accept="image/*" style="margin-bottom:15px; display:block;">
+        <button type="submit" class="btn" style="width:100%; padding:12px;">Save Changes</button>
+    </form>
+</div>
+{% endblock %}
